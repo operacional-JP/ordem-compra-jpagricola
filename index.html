@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordem de Compra JP Agrícola</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-title">
+                <img src="logo-sem-fundo.png" alt="JP Agrícola" class="logo">
+                <h1>Ordem de Compra</h1>
+            </div>
+            <div class="company-info">
+                <p><strong>JP Agrícola LTDA</strong></p>
+                <p>Av. Presidente Vargas, Escritório 04</p>
+                <p>(Anexo ao Posto Vale do Uraim)</p>
+                <p>CEP 68.625-130 Paragominas - PA</p>
+            </div>
+        </div>
+
+        <form id="pedidoForm">
+            <div class="section-title">Dados do Pedido</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dataSolicitacao">Data da Solicitação:</label>
+                    <input type="date" id="dataSolicitacao" required>
+                </div>
+                <div class="form-group">
+                    <label for="solicitante">Nome do Solicitante:</label>
+                    <input type="text" id="solicitante" required>
+                </div>
+                <div class="form-group">
+                    <label for="centroCusto">Centro de Custo:</label>
+                    <select id="centroCusto" required>
+                        <option value="">Selecione...</option>
+                        <option value="Operacional">Operacional</option>
+                        <option value="ADM/Financeiro">ADM/Financeiro</option>
+                        <option value="RH">RH</option>
+                        <option value="Geoprocessamento">Geoprocessamento</option>
+                        <option value="Comercial">Comercial</option>
+                        <option value="P&D">Pesquisa & Desenvolvimento</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section-title">Dados do Fornecedor</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fornecedorRazaoSocial">Razão Social:</label>
+                    <input type="text" id="fornecedorRazaoSocial" required>
+                </div>
+                <div class="form-group">
+                    <label for="fornecedorCpfCnpj">CPF/CNPJ:</label>
+                    <input type="text" id="fornecedorCpfCnpj" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fornecedorEmail">E-mail:</label>
+                    <input type="email" id="fornecedorEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="fornecedorTelefone">Telefone:</label>
+                    <input type="tel" id="fornecedorTelefone" required>
+                </div>
+                <div class="form-group full-width">
+                    <label for="fornecedorEndereco">Endereço:</label>
+                    <input type="text" id="fornecedorEndereco" required>
+                </div>
+            </div>
+
+            <div class="section-title">Dados da Compra</div>
+            <table id="itensTable">
+                <thead>
+                    <tr>
+                        <th>Quantidade</th>
+                        <th>Produto/Serviço</th>
+                        <th>Valor Unitário</th>
+                        <th>Valor Total</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="total-label">Total Geral:</td>
+                        <td id="totalGeral">R$ 0,00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button type="button" id="adicionarItem" class="btn-secondary">Adicionar Item</button>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Forma de Pagamento:</label>
+                    <div class="payment-options">
+                        <label><input type="radio" name="pagamento" value="Pix" required> Pix</label>
+                        <label><input type="radio" name="pagamento" value="Crédito"> Crédito</label>
+                        <label><input type="radio" name="pagamento" value="Débito"> Débito</label>
+                        <label><input type="radio" name="pagamento" value="Boleto"> Boleto</label>
+                        <label><input type="radio" name="pagamento" value="Transferência"> Transferência</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="prazoPagamento">Prazo para Pagamento:</label>
+                    <input type="text" id="prazoPagamento" placeholder="Ex: 30 dias" required>
+                </div>
+            </div>
+
+            <div class="footer-notes">
+                <p><strong>ENVIAR NOTAS FISCAIS E BOLETOS PARA:</strong></p>
+                <p>contato@jpconsultoriaagricola.com.br
+                    <p>financeiro@jpconsultoriaagricola.com.br </p>
+                    <p>adm@jpconsultoriaagricola.com.br</p>
+                <p>Telefone: 91 99112-9685</p>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="gerarPDF" class="btn-primary">Gerar PDF</button>
+                <button type="reset" class="btn-secondary">Limpar Formulário</button>
+            </div>
+        </form>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
