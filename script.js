@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Adicionar logo (usando await para carregar)
             const logoUrl = 'operacional-JP/ordem-compra-jpagricola./logo sem fundo.png';
             const logoData = await getBase64Image(logoUrl);
-            doc.addImage(logoData, 'PNG', 15, 5, 30, 30);
+            doc.addImage(logoData, 'PNG', 15, 10, 30, 30);
         } catch (e) {
             console.warn('Erro ao carregar logo, continuando sem imagem...');
         }
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.setFontSize(16);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(0, 0, 139);
-        doc.text('ORDEM DE COMPRA', 15, 40); // alinhado à esquerda
+        doc.text('ORDEM DE COMPRA', 15, 50); // alinhado à esquerda
 
         
         
