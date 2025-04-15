@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         try {
             // Adicionar logo (usando await para carregar)
-            const logoUrl = 'logo-sem-fundo.png';
+            const logoUrl = 'logo sem fundo.png';
             const logoData = await getBase64Image(logoUrl);
             doc.addImage(logoData, 'PNG', 15, 15, 40, 40);
         } catch (e) {
