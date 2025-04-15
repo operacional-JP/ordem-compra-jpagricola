@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.setFontSize(16);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(0, 0, 139);
-        doc.text('ORDEM DE COMPRA', 15, 50); // alinhado à esquerda
+        doc.text('ORDEM DE COMPRA', 15, 30); // alinhado à esquerda
 
         
         
