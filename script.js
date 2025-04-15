@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Adicionar logo (usando await para carregar)
             const logoUrl = 'operacional-JP/ordem-compra-jpagricola./logo sem fundo.png';
             const logoData = await getBase64Image(logoUrl);
-            doc.addImage(logoData, 'PNG', 15, 15, 40, 40);
+            doc.addImage(logoData, 'PNG', 15, 5, 30, 30);
         } catch (e) {
             console.warn('Erro ao carregar logo, continuando sem imagem...');
         }
@@ -195,13 +195,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Restante do cabeçalho
         doc.setFontSize(16);
         doc.setFont('helvetica', 'bold');
-        doc.setTextColor(46, 125, 50);
-        doc.text('ORDEM DE COMPRA', 15, 25); // alinhado à esquerda
+        doc.setTextColor(0, 0, 139);
+        doc.text('ORDEM DE COMPRA', 15, 40); // alinhado à esquerda
 
         
         
         // Informações da empresa
-        doc.setFontSize(12); // maior tamanho para o nome
+        doc.setFontSize(14); // maior tamanho para o nome
         doc.setFont('helvetica', 'bold'); // nome em negrito
         doc.text('JP Agrícola LTDA', 150, 15);
 
@@ -212,13 +212,13 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.text('(Anexo ao Posto Vale do Uraim)', 150, 25);
 
         // Linha divisória
-        doc.setDrawColor(46, 125, 50);
+        doc.setDrawColor(0, 0, 139);
         doc.setLineWidth(0.5);
-        doc.line(15, 40, 195, 40);
+        doc.line(15, 45, 195, 40);
         
         // Dados do Pedido
         doc.setFontSize(12);
-        doc.setTextColor(46, 125, 50);
+        doc.setTextColor(0, 0, 139);
         doc.text('DADOS DO PEDIDO', 15, 50);
         doc.setFontSize(10);
         doc.setTextColor(0, 0, 0);
@@ -228,13 +228,13 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.text(`Centro de Custo: ${document.getElementById('centroCusto').value}`, 15, 70);
 
          // Linha divisória
-         doc.setDrawColor(46, 125, 50);
+         doc.setDrawColor(0, 0, 139);
          doc.setLineWidth(0.5);
          doc.line(15, 75, 195, 75);
         
         // Dados do Fornecedor
         doc.setFontSize(12);
-        doc.setTextColor(46, 125, 50);
+        doc.setTextColor(0, 0, 139);
         doc.text('DADOS DO FORNECEDOR', 15, 85);
         doc.setFontSize(10);
         doc.setTextColor(0, 0, 0);
@@ -246,13 +246,13 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.text(`Endereço: ${document.getElementById('fornecedorEndereco').value}`, 15, 115);
 
          // Linha divisória
-         doc.setDrawColor(46, 125, 50);
+         doc.setDrawColor(0, 0, 139);
          doc.setLineWidth(0.5);
          doc.line(15, 120, 195, 120);
         
         // Dados da Compra
         doc.setFontSize(12);
-        doc.setTextColor(46, 125, 50);
+        doc.setTextColor(0, 0, 139);
         doc.text('DADOS DA COMPRA', 15, 130);
         
         // Preparar dados para a tabela
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
             head: [['Quant.', 'Produto/Serviço', 'Vl. Unitário', 'Vl. Total']],
             body: itensData,
             headStyles: {
-                fillColor: [46, 125, 50],
+                fillColor: [0, 0, 139],
                 textColor: 255,
                 fontStyle: 'bold'
             },
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.text(`Prazo para Pagamento: ${document.getElementById('prazoPagamento').value}`, 15, finalY + 15);
 
          // Linha divisória
-         doc.setDrawColor(46, 125, 50);
+         doc.setDrawColor(0, 0, 139);
          doc.setLineWidth(0.5);
          doc.line(15, finalY + 20, 195, finalY + 20);
         
