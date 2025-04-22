@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Linha divisória
         doc.setDrawColor(0, 0, 139);
         doc.setLineWidth(0.5);
-        doc.line(15, 45, 195, 40);
+        doc.line(15, 45, 195, 45);
         
         // Dados do Pedido
         doc.setFontSize(12);
