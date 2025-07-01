@@ -179,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const { jsPDF } = window.jspdf;
 const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-// Logo
 try {
     const logoUrl = 'operacional-JP/ordem-compra-jpagricola/logo sem fundo.png';
     const logoData = await getBase64Image(logoUrl);
@@ -188,22 +187,18 @@ try {
     console.warn('Erro ao carregar logo.');
 }
 
-// Título
+// Cabeçalho
+const linhaTituloY = 28;
 doc.setFontSize(16);
-doc.setTextColor(46, 125, 50); // verde
-
-// Empresa e título centralizados
+doc.setTextColor(46, 125, 50);
 doc.setFont(undefined, 'bold');
 doc.text('JP AGRÍCOLA LTDA', 105, 15, { align: 'center' });
 doc.setFontSize(14);
 doc.setFont(undefined, 'normal');
 doc.text('ORDEM DE COMPRA', 105, 23, { align: 'center' });
+addLine(15, linhaTituloY, 195);
 
-// Linha divisória
-addLine(15, 28, 195);
-
-// Dados do Pedido
-let y = 32;
+let y = linhaTituloY + 4;
 doc.setFontSize(12);
 doc.setTextColor(0);
 doc.setFont(undefined, 'bold');
@@ -215,11 +210,15 @@ doc.text(`Data: ${formatDate(dataSolicitacao.value)}`, 15, y);
 doc.text(`Solicitante: ${solicitante.value}`, 80, y);
 doc.text(`Centro de Custo: ${centroCusto.value}`, 145, y);
 
-// Dados do Fornecedor
-y += 10;
+// Separador
+y += 6;
+addLine(15, y, 195);
+y += 4;
+doc.setFontSize(12);
 doc.setFont(undefined, 'bold');
 doc.text('Dados do Fornecedor', 15, y);
 y += 6;
+doc.setFontSize(10);
 doc.setFont(undefined, 'normal');
 doc.text(`Razão Social: ${fornecedorRazaoSocial.value}`, 15, y);
 y += 5;
@@ -230,7 +229,15 @@ doc.text(`E-mail: ${fornecedorEmail.value}`, 15, y);
 y += 5;
 doc.text(`Endereço: ${fornecedorEndereco.value}`, 15, y);
 
-// Tabela de Itens
+// Separador
+y += 6;
+addLine(15, y, 195);
+y += 4;
+doc.setFontSize(12);
+doc.setFont(undefined, 'bold');
+doc.text('Dados da Compra', 15, y);
+
+// Tabela
 const itensData = Array.from(itensTable.querySelectorAll('tr')).map(row => [
     row.querySelector('.quantidade-input')?.value || '',
     row.querySelector('.descricao-input')?.value || '',
@@ -238,40 +245,47 @@ const itensData = Array.from(itensTable.querySelectorAll('tr')).map(row => [
     row.querySelector('td:nth-child(4) span')?.textContent || ''
 ]);
 
-// Tabela
-let tableY = y + 10;
+let tableY = y + 6;
 doc.autoTable({
     startY: tableY,
     head: [['Qtd.', 'Produto/Serviço', 'Valor Unit.', 'Total']],
     body: itensData,
     theme: 'grid',
-    headStyles: { fillColor: [46, 125, 50], textColor: 255 },
-    styles: { fontSize: 9, halign: 'left' },
+    tableWidth: 180,
+    margin: { left: 15 },
+    headStyles: { fillColor: [46, 125, 50], textColor: 255, halign: 'center' },
+    styles: { fontSize: 9, halign: 'center' },
     columnStyles: {
-        0: { halign: 'center', cellWidth: 15 },
-        1: { cellWidth: 100 },
-        2: { halign: 'right', cellWidth: 25 },
-        3: { halign: 'right', cellWidth: 25 },
+        0: { cellWidth: 20 },
+        1: { cellWidth: 90, halign: 'left' },
+        2: { cellWidth: 35 },
+        3: { cellWidth: 35 },
     },
 });
 
-// Dados finais
 const finalY = doc.lastAutoTable.finalY + 10;
 doc.setFontSize(10);
+doc.setTextColor(0);
 doc.text(`Forma de Pagamento: ${document.querySelector('input[name="pagamento"]:checked')?.value || ''}`, 15, finalY);
 doc.text(`Prazo para Pagamento: ${prazoPagamento.value}`, 15, finalY + 6);
-doc.text(`Total Geral: ${totalGeralElement.textContent}`, 160, finalY, { align: 'right' });
+doc.text(`Total Geral: ${totalGeralElement.textContent}`, 195, finalY, { align: 'right' });
 
-// Contato
+// Rodapé com destaque
+const rodapeY = 280;
+doc.setLineWidth(0.3);
+doc.setDrawColor(200);
+doc.line(15, rodapeY - 5, 195, rodapeY - 5);
 doc.setFontSize(9);
-doc.setTextColor(100);
-doc.text('ENVIAR NOTAS FISCAIS E BOLETOS PARA:', 15, finalY + 14);
-doc.text('contato@jpconsultoriaagricola.com.br', 15, finalY + 18);
-doc.text('financeiro@jpconsultoriaagricola.com.br', 15, finalY + 22);
-doc.text('adm@jpconsultoriaagricola.com.br', 15, finalY + 26);
-doc.text('Telefone: 91 99112-9685', 15, finalY + 30);
+doc.setFont(undefined, 'bold');
+doc.setTextColor(200, 0, 0);
+doc.text('ENVIAR NOTAS FISCAIS E BOLETOS PARA:', 15, rodapeY);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(50);
+doc.text('contato@jpconsultoriaagricola.com.br', 15, rodapeY + 5);
+doc.text('financeiro@jpconsultoriaagricola.com.br', 15, rodapeY + 9);
+doc.text('adm@jpconsultoriaagricola.com.br', 15, rodapeY + 13);
+doc.text('Telefone: 91 99112-9685', 15, rodapeY + 17);
 
-// Salvar
 const nomePDF = `OrdemCompra_${fornecedorRazaoSocial.value}_${formatDate(dataSolicitacao.value)}.pdf`;
 doc.save(nomePDF);
 
